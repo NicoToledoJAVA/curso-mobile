@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import url from '../config/fetchInfo';
+import * as ScreenOrientation from 'expo-screen-orientation';
 import {
   ScrollView,
   View,
@@ -9,12 +10,18 @@ import {
   Image,
 } from 'react-native';
 
-const Home = () => {
+const Table = () => {
   const [wines, setWines] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchWines();
+    // Bloquear la orientación de la pantalla en horizontal cuando se monta el componente
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    // Limpiar la orientación al desmontar el componente
+    return () => {
+      ScreenOrientation.unlockAsync(); // Desbloquear la orientación al desmontar el componente
+    };
   }, []);
 
   const fetchWines = async () => {
@@ -35,7 +42,7 @@ const Home = () => {
   };
 
   return (
-    <ScrollView horizontal>
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.scrollViewContent}>
       <View style={styles.table}>
         {/* Header */}
         <View style={styles.row}>
@@ -64,10 +71,11 @@ const Home = () => {
                   resizeMode="contain"
                 />
               </View>
+
               <Text style={[styles.cell]}>{wine.name}</Text>
               <Text style={styles.cell}>{wine.year}</Text>
               <Text style={styles.cell}>{wine.type}</Text>
-              <Text style={styles.cell}>{wine.category}</Text>              
+              <Text style={styles.cell}>{wine.category}</Text>
               <Text style={[styles.cell, styles.bold, styles.alignRight]}>
                 ${wine.price.toLocaleString('es-AR')}
               </Text>
@@ -93,6 +101,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     alignItems: 'center',
+    flexWrap: 'wrap', // Permite el ajuste de las filas
   },
   columnHeader: {
     backgroundColor: '#3c45ab',
@@ -100,11 +109,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 20,
+    padding: 15,
   },
   cell: {
+    padding: 5,
     flex: 1,
-    padding: 10,
     textAlign: 'center',
   },
   imageContainer: {
@@ -113,7 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
-    marginRight: 10,
   },
   image: {
     width: 37.8,
@@ -137,7 +146,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 18,
   },
+  scrollViewContent: {
+    flexDirection: 'row',
+    flexWrap: 'wrap', // Esto permite el desplazamiento tanto horizontal como vertical
+  },
 });
 
-export default Home;
-
+export default Table;
