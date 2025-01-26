@@ -1,8 +1,7 @@
-//  import CategoriesStack from './navigation/stacks/CategoriesStack'
-//import CartStack from './navigation/stacks/CartStack'
-//import InventoryStack from './navigation/stacks/WholeListStack'
+
 import PersonalRouter from './navigation/PersonalRouter';
 import { Colours } from './config/colours';
+import CategoriesStack from './navigation/stacks/CategoriesStack';
 
 import {
   NavigationContainer,
@@ -32,23 +31,16 @@ import { configureStore } from '@reduxjs/toolkit';
 
 
 export default function App() {
+
+
+
   return (
 
     <>
-    
-    
-          <PersonalRouter/>
-      
 
+    
+      <PersonalRouter />
 
-        <View style={styles.footer}>
-          {/* Menú de 3 botones */}
-          <View style={styles.menu}>
-            <Text style={styles.button}>Botón 1</Text>
-            <Text style={styles.button}>Botón 2</Text>
-            <Text style={styles.button}>Botón 3</Text>
-          </View>
-        </View>
 
 
       
@@ -84,7 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   footer: {
-    backgroundColor: '#3c45ab',
+    backgroundColor: "transparent",
     paddingVertical: 10,
   },
   menu: {

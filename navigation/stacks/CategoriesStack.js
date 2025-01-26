@@ -1,43 +1,31 @@
-
 import Header from '../../components/Header';
-
-import AllCategories from '../screens/categories/Categories'
-
-
-
+import AllCategories from '../screens/categories/Categories';
+import CategoryScreen from '../screens/categories/CategoryScreen';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-// Crea un reducer vacío o mínimo
-const emptyReducer = (state = {}, action) => state;
-
-
 
 const CategoriesStack = () => {
     return (
-
         <Stack.Navigator
             screenOptions={({ route }) => ({
                 header: () => {
-                    console.log("Recibí una ruta: " + route.name)
-                    return <Header title={
-                        route.name === "Categories" ? "Seleccione una Categoría" :
-                            route.name === "All" ? "Detalle de todas las existencias" :
+                    console.log("Recibí una ruta: " + route.name);
+                    return <Header
+                        title={
+                            route.name === "AllCategories" ? "Seleccione una Categoría" :
                                 route.name === "CategoryScreen" ? "Existencias de " + route.params.category :
                                     route.name === "Detalles" ? "Perfil ampliado" : ""
-                    }
-                    />
+                        }
+                    />;
                 }
             })}
-
         >
-            <Stack.Screen name='AllCategories' component={AllCategories} />
+            <Stack.Screen name="AllCategories" component={AllCategories} />
+            <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
+        </Stack.Navigator>
+    );
+};
 
-        </Stack.Navigator >
-
-    )
-
-
-}
 export default CategoriesStack;

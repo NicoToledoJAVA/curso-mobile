@@ -19,8 +19,7 @@ const AllCategories = () => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    fetchCategories();
- 
+    fetchCategories(); 
  
   }, []);
 
