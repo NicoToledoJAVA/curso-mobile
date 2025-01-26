@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import url from '../config/fetchInfo';
+import url from '../../../config/fetchInfo';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import {
   ScrollView,
@@ -16,12 +16,7 @@ const Table = () => {
 
   useEffect(() => {
     fetchWines();
-    // Bloquear la orientación de la pantalla en horizontal cuando se monta el componente
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-    // Limpiar la orientación al desmontar el componente
-    return () => {
-      ScreenOrientation.unlockAsync(); // Desbloquear la orientación al desmontar el componente
-    };
+   
   }, []);
 
   const fetchWines = async () => {

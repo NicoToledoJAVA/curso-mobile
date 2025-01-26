@@ -1,16 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import url from '../config/fetchInfo';
-import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+//Categories.js
 
-const Home = () => {
+import React, { useEffect, useState } from 'react';
+import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { 
+  NavigationContainer,
+  useNavigation
+} from '@react-navigation/native';
+import * as ScreenOrientation from 'expo-screen-orientation';
+
+
+import url from '../../../config/fetchInfo';
+import CategoryScreen from './CategoryScreen';
+import { Colours } from '../../../config/colours';
+
+const AllCategories = () => {
+  const navigation = useNavigation();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     fetchCategories();
+ 
+ 
   }, []);
 
   const fetchCategories = async () => {
+   
     try {
       const response = await fetch(`${url}/getAll`); // Cambia la URL según tu configuración
       const data = await response.json();
@@ -20,13 +35,15 @@ const Home = () => {
       setCategories(uniqueCategories);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error('Error fetchis:', errr);
       setLoading(false);
     }
   };
 
   const handleCategoryClick = (category) => {
     console.log(`Category clicked: ${category}`);
+    navigation.navigate("CategoryScreen", { category });
+    //navigation.navigate(CategoryScreen, { category: category })
     // Aquí puedes agregar lógica adicional, como navegación o filtrado
   };
 
@@ -57,7 +74,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   button: {
-    backgroundColor: '#3c45ab',
+    backgroundColor: Colours.button,
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,
@@ -78,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default AllCategories;

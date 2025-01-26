@@ -1,6 +1,7 @@
 // config/fetchInfo.js
 import { Platform } from 'react-native';
 let variables;
+
 if (Platform.OS === 'android' || Platform.OS === 'ios') {
     variables = {
         protocol: "http",
@@ -29,18 +30,7 @@ let url = `${variables.protocol}://${variables.domain}:${variables.port}/${varia
 
 export default url;
 
-/*
-const variables = {
-    protocol: "http",
-    domain: "localhost",
-    port: 8180,
-    api: "mobile/wines"
-};
 
-const url = `${variables.protocol}://${variables.domain}:${variables.port}/${variables.api}`;
-
-export default url;
-*/
 
 
 

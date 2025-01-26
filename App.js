@@ -1,6 +1,16 @@
-import Table from './pages/Table';
-import Categories from './pages/Categories';
-import { NavigationContainer } from '@react-navigation/native';
+//  import CategoriesStack from './navigation/stacks/CategoriesStack'
+//import CartStack from './navigation/stacks/CartStack'
+//import InventoryStack from './navigation/stacks/WholeListStack'
+import PersonalRouter from './navigation/PersonalRouter';
+import { Colours } from './config/colours';
+
+import {
+  NavigationContainer,
+  useNavigation
+} from '@react-navigation/native';
+
+
+
 
 import {
   StatusBar,
@@ -13,45 +23,39 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
+import { configureStore } from '@reduxjs/toolkit';
+
+
+
 
 
 export default function App() {
   return (
 
-   
-
-    <NavigationContainer>
-      <Stack.Navigator>
-
-        <Stack.Screen
-          name="home"
-          component={
-            <View style={styles.container}>
-              <Categories />
-            </View>
-
-          }
+    <>
+    
+    
+          <PersonalRouter/>
+      
 
 
-        />
-
-       
-          <View style={styles.footer}>
-            {/* Menú de 3 botones */}
-            <View style={styles.menu}>
-              <Text style={styles.button}>Botón 1</Text>
-              <Text style={styles.button}>Botón 2</Text>
-              <Text style={styles.button}>Botón 3</Text>
-            </View>
+        <View style={styles.footer}>
+          {/* Menú de 3 botones */}
+          <View style={styles.menu}>
+            <Text style={styles.button}>Botón 1</Text>
+            <Text style={styles.button}>Botón 2</Text>
+            <Text style={styles.button}>Botón 3</Text>
           </View>
-
-      </Stack.Navigator>
-    </NavigationContainer>
+        </View>
 
 
+      
+
+
+
+    </>
 
 
 
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   button: {
-    color: '#fff',
+    color: Colours.button,
     fontSize: 16,
     fontWeight: 'bold',
   },
