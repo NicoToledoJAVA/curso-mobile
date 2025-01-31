@@ -30,6 +30,13 @@ let url = `${variables.protocol}://${variables.domain}:${variables.port}/${varia
 
 export default url;
 
+export const fireBaseUrl = "https://practico-final-mobile-default-rtdb.firebaseio.com/";
+
+export const authBaseUrl = "https://identitytoolkit.googleapis.com/v1/";
+
+export const authApiKey = "AIzaSyBJE10ETqvm_Kho4LkzQrSvWuf0xcz-sv4";
+
+
 
 
 

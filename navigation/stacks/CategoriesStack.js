@@ -11,7 +11,7 @@ const CategoriesStack = () => {
         <Stack.Navigator
             screenOptions={({ route }) => ({
                 header: () => {
-                    console.log("Recibí una ruta: " + route.name);
+                   
                     return <Header
                         title={
                             route.name === "AllCategories" ? "Seleccione una Categoría" :

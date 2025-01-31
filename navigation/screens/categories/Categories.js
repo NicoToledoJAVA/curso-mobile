@@ -2,54 +2,36 @@
 
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { 
-  NavigationContainer,
-  useNavigation
-} from '@react-navigation/native';
-import * as ScreenOrientation from 'expo-screen-orientation';
-
-
-import url from '../../../config/fetchInfo';
-import CategoryScreen from './CategoryScreen';
+import { useNavigation } from '@react-navigation/native';
+import { useGetWinesQuery, useGetWineByIdQuery } from '../../../services/shop';
 import { Colours } from '../../../config/colours';
+
+
 
 const AllCategories = () => {
   const navigation = useNavigation();
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    fetchCategories(); 
- 
-  }, []);
 
-  const fetchCategories = async () => {
-   
-    try {
-      const response = await fetch(`${url}/getAll`); // Cambia la URL según tu configuración
-      const data = await response.json();
 
-      // Obtener las categorías únicas
-      const uniqueCategories = [...new Set(data.map((wine) => wine.category))];
-      setCategories(uniqueCategories);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetchis:', errr);
-      setLoading(false);
-    }
-  };
+  const { data = [], error, isLoading } = useGetWinesQuery();
+  const { data: wine } = useGetWineByIdQuery(1); // Obtenemos el vino con ID 1
+
+  // Si ya tienes datos, modifica el atributo "photo"
+  const modifiedWine = wine ? { ...wine, photo: "Va foto" } : null;
+
+  // Procesar las categorías únicas y eliminar el primer valor
+  const categories = [...new Set(data.map((wine) => wine.category).slice(1))]; // Eliminamos el primer valor, que lo habiamos puesto a modo de ejemplo y decidimos dejar para complejizar la query
+
 
   const handleCategoryClick = (category) => {
-    console.log(`Category clicked: ${category}`);
     navigation.navigate("CategoryScreen", { category });
-    //navigation.navigate(CategoryScreen, { category: category })
-    // Aquí puedes agregar lógica adicional, como navegación o filtrado
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {loading ? (
+      {isLoading ? (
         <Text style={styles.loadingText}>Cargando...</Text>
+      ) : error ? (
+        <Text style={styles.loadingText}>Error al cargar las categorías</Text>
       ) : (
         categories.map((category, index) => (
           <TouchableOpacity
@@ -67,9 +49,9 @@ const AllCategories = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Asegura que el contenedor ocupe todo el espacio disponible
-    justifyContent: 'center', // Alinea verticalmente al centro
-    alignItems: 'center', // Centra horizontalmente los botones
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
   },
   button: {

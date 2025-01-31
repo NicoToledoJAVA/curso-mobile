@@ -10,7 +10,7 @@ const CartStack = () => {
         <Stack.Navigator
             screenOptions={({ route }) => ({
                 header: () => {
-                    console.log("Recibí una ruta: " + route.name)
+                    
                     return <Header title= "Carrito" routeName = {route.name}
                     />
                 }

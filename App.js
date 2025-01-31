@@ -5,6 +5,7 @@ import CategoriesStack from './navigation/stacks/CategoriesStack';
 
 import {
   NavigationContainer,
+  ThemeProvider,
   useNavigation
 } from '@react-navigation/native';
 
@@ -24,9 +25,11 @@ import {
 } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import { store } from './store/index.js';
+import Counter from './components/Counter';
 
-
+import Signup from './navigation/screens/signup/Signup';
 
 
 
@@ -37,30 +40,13 @@ export default function App() {
   return (
 
     <>
-
     
-      <PersonalRouter />
+     <Provider store={store}>
+     <PersonalRouter />
+ 
 
-
-
-      
-
-
-
+  </Provider>
     </>
-
-
-
-
-
-
-
-
-
-
-
-
-
   );
 }
 
@@ -89,3 +75,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+{/*        
+
+
+
+*/ }
