@@ -40,10 +40,7 @@ const TabNavigator = () => {
                     tabBarIcon: ({ focused }) => <TabBarIcon text="Categorias" icon="view-grid-plus-outline" focused={focused} />
                 }}
             />
-            <Tab.Screen
-                name='Ver Todos'
-                component={InventoryStack}
-            />
+            
             <Tab.Screen
                 name='Chango'
                 component={CartStack}

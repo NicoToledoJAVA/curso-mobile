@@ -46,20 +46,19 @@ const CategoryScreen = ({ route }) => {
     const currentItem = items[currentIndex];
     const currentCart = Array.isArray(cartData) ? cartData : [];
   
+    // Verificar si el producto ya existe en el carrito
     const existingItemIndex = currentCart.findIndex(
       (item) => item.productId === currentItem.id
     );
   
-    let updatedCart;
     if (existingItemIndex !== -1) {
-      updatedCart = currentCart.map((item) =>
-        item.productId === currentItem.id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-    } else {
-      updatedCart = [...currentCart, { productId: currentItem.id, quantity: 1 }];
+      // Si el producto ya existe, mostrar un mensaje y no hacer nada más
+      alert('Este producto ya está en tu carrito.');
+      return;  // Salir de la función sin hacer nada más
     }
+  
+    // Si el producto no existe en el carrito, añadirlo
+    const updatedCart = [...currentCart, { productId: currentItem.id, quantity: 1 }];
   
     console.log("Carrito actualizado:", updatedCart); // Verifica los datos antes de enviar
   

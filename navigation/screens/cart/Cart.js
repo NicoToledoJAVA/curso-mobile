@@ -9,6 +9,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useCallback } from 'react';
 
 
+
 const Cart = () => {
   const navigation = useNavigation();
   const localId = useSelector(state => state.user.localId);
@@ -79,15 +80,18 @@ const Cart = () => {
     }
   };
 
-  const confirmCart = () => {
-    const createdAt = new Date().toLocaleString();
-    const order = {
-      products: cart,
-      createdAt,
-      total
-    };
-    console.log('Orden confirmada', order);
-    navigation.navigate("OrdersStack");
+  const confirmCart = async () => {
+    // Mostrar la alerta de felicitaciones
+    alert("¡Felicidades por su compra!");
+  
+    // Vaciar el carrito
+    try {
+      await patchCart({ localId, cart: [] }).unwrap();  // Actualizamos el carrito a un array vacío
+    } catch (error) {
+      console.error("Error al vaciar el carrito:", error);
+    }
+  
+   
   };
 
   if (isLoading) {
