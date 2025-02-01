@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useGetCartQuery } from '../../../services/user';
+import { useGetCartQuery } from '../../../services/cart';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Colours } from '../../../config/colours';
@@ -46,6 +46,16 @@ const Cart = () => {
       fetchWines();
     }
   }, [cart]);
+
+  const updateQuantity = async (productId, change) => {
+    if (!cart) return;
+    const updatedCart = cart.map(item => 
+      item.productId === productId 
+        ? { ...item, quantity: Math.max(1, item.quantity + change) } 
+        : item
+    );
+    await patchCart({ localId, cart: updatedCart });
+  };
 
   const confirmCart = () => {
     const createdAt = new Date().toLocaleString();
@@ -97,6 +107,15 @@ const Cart = () => {
                     <Text>Cargando detalles del vino...</Text>
                   )}
                 </View>
+                <View style={styles.quantityControls}>
+                <Pressable onPress={() => updateQuantity(item.productId, -1)} style={styles.buttonSmall}>
+                  <Text style={styles.buttonText}>-</Text>
+                </Pressable>
+                <Text style={styles.quantityText}>{item.quantity}</Text>
+                <Pressable onPress={() => updateQuantity(item.productId, 1)} style={styles.buttonSmall}>
+                  <Text style={styles.buttonText}>+</Text>
+                </Pressable>
+              </View>
               </View>
             </View>
           );
@@ -142,6 +161,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5
   },
+  
   buttonText: {
     color: Colours.lightGray
   },
@@ -167,6 +187,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginTop: 5
+  },
+  quantityControls: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  quantityText: {
+    marginHorizontal: 10,
+    fontSize: 16
+  },
+  buttonSmall: {
+    backgroundColor: Colours.primary,
+    padding: 5,
+    borderRadius: 5
   }
 });
 
