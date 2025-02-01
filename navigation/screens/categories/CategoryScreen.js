@@ -42,15 +42,15 @@ const CategoryScreen = ({ route }) => {
       alert('Debes iniciar sesión para agregar productos al carrito.');
       return;
     }
-
+  
     const currentItem = items[currentIndex];
-    const currentCart = cartData || [];
+    const currentCart = Array.isArray(cartData) ? cartData : [];
+  
     const existingItemIndex = currentCart.findIndex(
       (item) => item.productId === currentItem.id
     );
-
+  
     let updatedCart;
-
     if (existingItemIndex !== -1) {
       updatedCart = currentCart.map((item) =>
         item.productId === currentItem.id
@@ -60,15 +60,17 @@ const CategoryScreen = ({ route }) => {
     } else {
       updatedCart = [...currentCart, { productId: currentItem.id, quantity: 1 }];
     }
-
+  
+    console.log("Carrito actualizado:", updatedCart); // Verifica los datos antes de enviar
+  
     try {
-      await updateCart({ localId, cart: updatedCart });
-      dispatch(updateCart(updatedCart));
+      await updateCart({ localId, cart: updatedCart }).unwrap();
       alert('Producto agregado al carrito.');
     } catch (error) {
       console.error('Error al actualizar el carrito:', error);
     }
   };
+  
 
   if (isLoading) {
     return (
