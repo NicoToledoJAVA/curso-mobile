@@ -26,37 +26,43 @@ const Signup = () => {
 
   const onSubmit = async () => {
     try {
-
-      signupSchema.validateSync({ email, password, confirmPassword })
+      // Validate the form
+      signupSchema.validateSync({ email, password, confirmPassword });
+  
+      // Make the API call
       const response = await triggerSingUp({ email, password });
-      const user = {
-        email: response.data.email,
-        idToken: response.data.idToken,      
-        localId: response.data.localId,      
+      console.log(response); // Log response to ensure it contains the expected data
+  
+      // Ensure response is valid
+      if (response?.data) {
+        const user = {
+          email: response.data.email,
+          idToken: response.data.idToken,
+          localId: response.data.localId,
+        };
+  
+        dispatch(setUser(user)); // Set the user in Redux
+      } else {
+        console.error("Sign up failed. No response data.");
       }
-      dispatch(setUser(user))
-
-
+  
     } catch (error) {
+      console.log(error);
+      // Handle form validation errors
       switch (error.path) {
         case "email":
-          setEmailError(error.message)
-          setPasswordError("")
-          setConfirmPasswordError("")
-          break
+          setEmailError(error.message);
+          break;
         case "password":
-          setPasswordError(error.message)
-          setEmailError("")
-          setConfirmPasswordError("")
-          break
+          setPasswordError(error.message);
+          break;
         case "confirmPassword":
-          setConfirmPasswordError(error.message)
-          setEmailError("")
-          setPasswordError("")
-          break
+          setConfirmPasswordError(error.message);
+          break;
+        default:
+          console.error("An unexpected error occurred");
       }
     }
-
   };
 
   return (
@@ -108,7 +114,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "90%",
-    backgroundColor: Colours.primary,
+    backgroundColor: "black",
     gap: 15,
     borderRadius: 10,
     justifyContent: "center",
@@ -126,7 +132,8 @@ const styles = StyleSheet.create({
     color: Colours.lightGray
   },
   subLink: {
-    fontSize: 14,
+    backgroundColor: Colours.accent,
+    fontSize: 18,
     fontFamily: "Josefin",
     color: Colours.lightGray
   }

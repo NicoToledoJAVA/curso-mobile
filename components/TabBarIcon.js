@@ -25,7 +25,7 @@ export default TabBarIcon
 const styles = StyleSheet.create({
 
   container: {
-    backgroundColor:Colours.primary,
+    backgroundColor: Colours.button,
     width: 100,
     alignItems: "center",    
     gap: 5,

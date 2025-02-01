@@ -2,26 +2,22 @@
 
 import React, { useState, useEffect } from 'react';
 import url from '../../../config/fetchInfo';
-
-
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Image,
-  ActivityIndicator,
-} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { usePatchCartMutation, useGetCartQuery } from '../../../services/cart';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 
 const CategoryScreen = ({ route }) => {
-    const { category = 'reserva' } = route.params || {}; 
+  const { category = 'reserva' } = route.params || {};
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
- 
+  const dispatch = useDispatch();
+  const localId = useSelector(state => state.user.localId); // Usuario actual
+  const { data: cartData } = useGetCartQuery({ localId }); // Obtener carrito del usuario
+  const [updateCart] = usePatchCartMutation(); // Mutación para actualizar el carrito
+
   useEffect(() => {
     fetchCategoryItems(category);
   }, [category]);
@@ -32,12 +28,7 @@ const CategoryScreen = ({ route }) => {
       setError(null);
       const response = await fetch(`${url}/getAll`);
       const data = await response.json();
-
-      // Filtrar los ítems, ignorando mayúsculas y minúsculas
-      const filteredItems = data.filter(
-        (wine) => wine.category?.toLowerCase() === category.toLowerCase()
-      );
-
+      const filteredItems = data.filter((wine) => wine.category?.toLowerCase() === category.toLowerCase());
       setItems(filteredItems);
       setLoading(false);
     } catch (error) {
@@ -59,6 +50,36 @@ const CategoryScreen = ({ route }) => {
     }
   };
 
+  const handleAddToCart = async () => {
+    if (!localId) {
+      alert("Debes iniciar sesión para agregar productos al carrito.");
+      return;
+    }
+  
+    const currentItem = items[currentIndex];
+    const currentCart = cartData || [];
+    const existingItemIndex = currentCart.findIndex(item => item.productId === currentItem.id);
+  
+    let updatedCart;
+  
+    if (existingItemIndex !== -1) {
+      updatedCart = currentCart.map(item =>
+        item.productId === currentItem.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      updatedCart = [...currentCart, { productId: currentItem.id, quantity: 1 }];
+    }
+  
+    try {
+      await updateCart({ localId, cart: updatedCart });
+      dispatch(updateCart(updatedCart));
+      alert("Producto agregado al carrito.");
+    } catch (error) {
+      console.error("Error al actualizar el carrito:", error);
+      setError("Error al agregar el producto. Intenta nuevamente.");
+    }
+  };
+  
   if (loading) {
     return (
       <View style={styles.loaderContainer}>
@@ -94,10 +115,7 @@ const CategoryScreen = ({ route }) => {
       <Text style={styles.title}>Categoría: {category}</Text>
       <View style={styles.itemContainer}>
         {currentItem.photo && (
-          <Image
-            source={{ uri: `data:image/jpeg;base64,${currentItem.photo}` }}
-            style={styles.image}
-          />
+          <Image source={{ uri: `data:image/jpeg;base64,${currentItem.photo}` }} style={styles.image} />
         )}
         <Text style={styles.itemName}>{currentItem.name}</Text>
         <Text style={styles.itemDetails}>Año: {currentItem.year}</Text>
@@ -106,21 +124,18 @@ const CategoryScreen = ({ route }) => {
       </View>
 
       <View style={styles.navigationButtons}>
-        <TouchableOpacity
-          style={[styles.navButton, currentIndex === 0 && styles.disabledButton]}
-          onPress={handlePrevious}
-          disabled={currentIndex === 0}
-        >
+        <TouchableOpacity style={[styles.navButton, currentIndex === 0 && styles.disabledButton]} onPress={handlePrevious} disabled={currentIndex === 0}>
           <Text style={styles.buttonText}>{"<"}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.navButton, currentIndex === items.length - 1 && styles.disabledButton]}
-          onPress={handleNext}
-          disabled={currentIndex === items.length - 1}
-        >
+        <TouchableOpacity style={[styles.navButton, currentIndex === items.length - 1 && styles.disabledButton]} onPress={handleNext} disabled={currentIndex === items.length - 1}>
           <Text style={styles.buttonText}>{">"}</Text>
         </TouchableOpacity>
       </View>
+
+      {/* ✅ Botón para agregar al carrito */}
+      <TouchableOpacity style={styles.addButton} onPress={handleAddToCart}>
+        <Text style={styles.buttonText}>Agregar al carrito 🛒</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -160,6 +175,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '60%',
+    marginBottom: 20,
   },
   navButton: {
     padding: 10,
@@ -188,6 +204,12 @@ const styles = StyleSheet.create({
   retryButton: {
     padding: 10,
     backgroundColor: '#007BFF',
+    borderRadius: 5,
+  },
+  addButton: {
+    marginTop: 20,
+    padding: 10,
+    backgroundColor: '#28a745',
     borderRadius: 5,
   },
 });

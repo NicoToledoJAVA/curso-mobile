@@ -1,31 +1,47 @@
-import { StyleSheet, Text,Pressable } from 'react-native'
-import { Colours} from '../config/colours'
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { Colours } from '../config/colours'
+import { LinearGradient } from 'expo-linear-gradient';
 
-
-const SubmitButton = ({title,onPress}) => {
-   
+const SubmitButton = ({ title, onPress }) => {
   return (
-        <Pressable style={styles.button} onPress={onPress}>
-                <Text style={styles.text}>{title}</Text>
-        </Pressable>
+    <LinearGradient
+      colors={['#0074e4', '#003366']} // Simula el gradient de fondo
+      style={styles.gradientBackground}
+    >
+      <TouchableOpacity onPress={onPress} style={styles.button}>
+        <Text style={styles.text}>{title}</Text>
+      </TouchableOpacity>
+    </LinearGradient>
   )
 }
 
-
 export default SubmitButton
 
-
 const styles = StyleSheet.create({
-    button:{
-        width:"60%",
-        backgroundColor:Colours.accent,
-        padding:10,
-        alignItems:"enter",
-        borderRadius:10
-    },
-    text:{
-        textAlign:"center",
-        color:"white",
-        fontSize:18
-    }
+  gradientBackground: {
+    borderRadius: 100,
+    borderWidth: 2,
+    borderColor: '#003366',
+    shadowColor: '#666666',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 5, // Para sombra en Android
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10, 
+  },
+  button: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignItems: 'center', // Antes estaba mal escrito como "enter"
+  },
+  text: {
+    fontFamily: 'Courier New', // Funciona en iOS, en Android puede necesitar carga
+    color: '#ffffff',
+    fontSize: 20, // Reducido de 35 a 20 para mejor visualización
+    textShadowColor: '#666666',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
+  },
 })

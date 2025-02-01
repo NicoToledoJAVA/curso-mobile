@@ -4,12 +4,20 @@ import { Colours } from '../config/colours'; // Consistente con la importación
 import ArrowGoBack from './ArrowGoBack';
 import { useNavigation } from '@react-navigation/native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-
-
-
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { useDispatch } from 'react-redux';
+import { deleteSesion } from '../contexts/deviceDB/dbSqlite';
+import { deleteUser } from '../contexts//userSlice';
 
 const Header = ({title}) => {
   const navigate = useNavigation();
+  
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    deleteSesion()
+    dispatch(deleteUser())
+  }
 
   return (
     <SafeAreaView
@@ -21,6 +29,9 @@ const Header = ({title}) => {
       <View style={styles.container}>
         {navigate.canGoBack() ? <ArrowGoBack /> : null}
         <Text style={styles.title}>{title}</Text>
+        <Pressable onPress={onLogout} style={styles.logout}>
+        <AntDesign name="logout" size={24} color= {Colours.lightGray} />
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -52,6 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: 'josefin',
   },
   logout: {
+    fontWeight: 'bold', // Usa 'bold' en lugar de 'bolder'
     position: 'absolute',
     right: 10,
   },

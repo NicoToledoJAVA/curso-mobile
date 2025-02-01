@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "90%",
-    backgroundColor: Colours.primary,
+    backgroundColor: "black",
     gap: 15,
     borderRadius: 10,
     justifyContent: "center",
@@ -113,13 +113,16 @@ const styles = StyleSheet.create({
     fontFamily: "Lobster",
     color: Colours.lightGray
   },
+ 
   sub: {
+
     fontSize: 14,
     fontFamily: "Josefin",
     color: Colours.lightGray
   },
   subLink: {
-    fontSize: 14,
+    backgroundColor: Colours.accent,
+    fontSize: 18,
     fontFamily: "Josefin",
     color: Colours.lightGray
   }

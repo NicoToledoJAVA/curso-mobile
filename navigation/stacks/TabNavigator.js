@@ -67,7 +67,7 @@ const TabNavigator = () => {
 
 const styles = StyleSheet.create({
     tabBar: {
-        backgroundColor: Colours.primary,
+        backgroundColor: Colours.button,
         height: 70,
         padding: 10,
 
