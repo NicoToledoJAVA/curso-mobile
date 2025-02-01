@@ -5,19 +5,29 @@ import { useGetWineByIdQuery } from '../../../services/shop'; // Hook de carrito
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Colours } from '../../../config/colours';
-
 import { fireBaseUrl } from '../../../config/fetchInfo';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
+
 
 const Cart = () => {
   const navigation = useNavigation();
   const localId = useSelector(state => state.user.localId);
-  
-  const { data: cart, isLoading } = useGetCartQuery({ localId });
+  const { data: cart, isLoading, refetch } = useGetCartQuery({ localId }, { refetchOnMountOrArgChange: true });
+ 
 
   const [total, setTotal] = useState(0);
   const [wines, setWines] = useState([]); // Estado para almacenar los vinos
 
+  // Refetch cada vez que el usuario entra a la pantalla del carrito
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [])
+  );
+
   useEffect(() => {
+   
     if (cart) {
       setTotal(cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
   
