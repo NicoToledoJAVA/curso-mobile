@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useGetCartQuery } from '../../../services/user'; // Hook de carrito
-import { useGetWineByIdQuery } from '../../../services/shop'; // Hook de carrito
+import { useGetCartQuery } from '../../../services/user';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Colours } from '../../../config/colours';
@@ -14,12 +13,10 @@ const Cart = () => {
   const navigation = useNavigation();
   const localId = useSelector(state => state.user.localId);
   const { data: cart, isLoading, refetch } = useGetCartQuery({ localId }, { refetchOnMountOrArgChange: true });
- 
 
   const [total, setTotal] = useState(0);
-  const [wines, setWines] = useState([]); // Estado para almacenar los vinos
+  const [wines, setWines] = useState([]); 
 
-  // Refetch cada vez que el usuario entra a la pantalla del carrito
   useFocusEffect(
     useCallback(() => {
       refetch();
@@ -27,28 +24,25 @@ const Cart = () => {
   );
 
   useEffect(() => {
-   
     if (cart) {
       setTotal(cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
-  
-      // Obtener detalles de los vinos en paralelo
+
       const fetchWines = async () => {
         const fetchedWines = {};
-        
+
         await Promise.all(cart.map(async (item) => {
           try {
             const response = await fetch(`${fireBaseUrl}/wines/${item.productId}.json`);
             const wineData = await response.json();
             fetchedWines[item.productId] = wineData;
-           
           } catch (error) {
             console.error('Error obteniendo el vino:', error);
           }
         }));
-  
-        setWines(fetchedWines); // Guardar los vinos en el estado
+
+        setWines(fetchedWines);
       };
-  
+
       fetchWines();
     }
   }, [cart]);
@@ -75,23 +69,35 @@ const Cart = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={cart}        
+        data={cart}
         renderItem={({ item }) => {
-          const wine = wines[item.productId];
+          const wine = wines[item.productId];          
+
           return (
             <View style={styles.productCard}>
-              <Text style={styles.productTitle}>{item.name}</Text>              
-              <Text>Cantidad: {item.quantity}</Text>
-             
-              {wine ? (
-                <>
-                  <Text style={styles.wineTitle}>Vino: {wine.name}</Text>
-                  <Text>Año: {wine.year}</Text>
-                  <Text>Precio: {wine.price} $ ARG</Text>
-                </>
-              ) : (
-                <Text>Cargando detalles del vino...</Text>
-              )}
+              {/* Contenedor con flexDirection: 'row' para colocar la imagen a la izquierda */}
+              <View style={styles.productContent}>
+                {wine?.photo && (
+                  <Image
+                    source={{ uri: `data:image/jpeg;base64,${wine.photo}` }}
+                    style={styles.image}
+                  />
+                )}
+                <View style={styles.productDetails}>
+                  <Text style={styles.productTitle}>{item.name}</Text>
+                  <Text>Cantidad: {item.quantity}</Text>
+
+                  {wine ? (
+                    <>
+                      <Text style={styles.wineTitle}>{wine.name}</Text>
+                      <Text>Año: {wine.year}</Text>
+                      <Text>Precio: {wine.price} $ ARG</Text>
+                    </>
+                  ) : (
+                    <Text>Cargando detalles del vino...</Text>
+                  )}
+                </View>
+              </View>
             </View>
           );
         }}
@@ -121,6 +127,12 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0
   },
+  image: {
+    width: 80,  // Reducimos el tamaño para mejor alineación
+    height: 80,
+    borderRadius: 10,
+    marginRight: 10, // Espaciado entre la imagen y el texto
+  },
   text: {
     color: Colours.lightGray,
     fontSize: 16
@@ -140,6 +152,13 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5
   },
+  productContent: {
+    flexDirection: "row", // Imagen a la izquierda, texto a la derecha
+    alignItems: "center"
+  },
+  productDetails: {
+    flex: 1 // Permite que el texto ocupe el espacio disponible
+  },
   productTitle: {
     fontSize: 18,
     fontWeight: "bold"
@@ -153,3 +172,4 @@ const styles = StyleSheet.create({
 
 
 export default Cart;
+
