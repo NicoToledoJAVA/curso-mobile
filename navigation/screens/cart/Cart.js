@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native';
 import { useSelector } from 'react-redux';
-import { useGetCartQuery } from '../../../services/cart';
+import { useGetCartQuery, usePatchCartMutation } from '../../../services/cart';
 import { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { CurrentRenderContext, useNavigation } from '@react-navigation/native';
 import { Colours } from '../../../config/colours';
 import { fireBaseUrl } from '../../../config/fetchInfo';
 import { useFocusEffect } from '@react-navigation/native';
@@ -13,7 +13,7 @@ const Cart = () => {
   const navigation = useNavigation();
   const localId = useSelector(state => state.user.localId);
   const { data: cart, isLoading, refetch } = useGetCartQuery({ localId }, { refetchOnMountOrArgChange: true });
-
+  const [patchCart] = usePatchCartMutation();
   const [total, setTotal] = useState(0);
   const [wines, setWines] = useState([]); 
 
@@ -25,11 +25,17 @@ const Cart = () => {
 
   useEffect(() => {
     if (cart) {
-      setTotal(cart.reduce((acc, item) => acc + item.price * item.quantity, 0));
-
+      setTotal(
+        cart.reduce((acc, item) => {
+          const price = item.price || 0;  // Aseguramos que el precio sea un número
+          const quantity = item.quantity || 0;  // Aseguramos que la cantidad sea un número
+          return acc + price * quantity;
+        }, 0)
+      );
+  
       const fetchWines = async () => {
         const fetchedWines = {};
-
+  
         await Promise.all(cart.map(async (item) => {
           try {
             const response = await fetch(`${fireBaseUrl}/wines/${item.productId}.json`);
@@ -39,22 +45,38 @@ const Cart = () => {
             console.error('Error obteniendo el vino:', error);
           }
         }));
-
+  
         setWines(fetchedWines);
       };
-
+  
       fetchWines();
     }
   }, [cart]);
 
+  useEffect(() => {
+    if (cart && cart.length > 0) {
+      const updatedTotal = cart.reduce((acc, item) => {
+        const price = wines[item.productId]?.price || 0; // Aseguramos que price esté definido
+        const quantity = item.quantity || 0; // Aseguramos que quantity esté definido
+        return acc + price * quantity;
+      }, 0);
+  
+      setTotal(updatedTotal);
+    }
+  }, [cart, wines]);
+
   const updateQuantity = async (productId, change) => {
     if (!cart) return;
-    const updatedCart = cart.map(item => 
-      item.productId === productId 
-        ? { ...item, quantity: Math.max(1, item.quantity + change) } 
+    const updatedCart = cart.map(item =>
+      item.productId === productId
+        ? { ...item, quantity: Math.max(1, item.quantity + change) }
         : item
     );
-    await patchCart({ localId, cart: updatedCart });
+    try {
+      await patchCart({ localId, cart: updatedCart }).unwrap();
+    } catch (error) {
+      console.error("Error actualizando el carrito:", error);
+    }
   };
 
   const confirmCart = () => {
@@ -101,7 +123,7 @@ const Cart = () => {
                     <>
                       <Text style={styles.wineTitle}>{wine.name}</Text>
                       <Text>Año: {wine.year}</Text>
-                      <Text>Precio: {wine.price} $ ARG</Text>
+                      <Text>Precio: ${(wine.price * item.quantity).toLocaleString('es-AR')}</Text>
                     </>
                   ) : (
                     <Text>Cargando detalles del vino...</Text>
@@ -122,7 +144,7 @@ const Cart = () => {
         }}
       />
       <View style={styles.containerTotal}>
-        <Text style={styles.text}>Total: {total} $ ARG</Text>
+      <Text style={styles.text}>Total: {total.toLocaleString('es-AR')} $ ARG</Text>
         <Pressable style={styles.button} onPress={confirmCart}>
           <Text style={styles.buttonText}>Finalizar Compra</Text>
         </Pressable>
@@ -194,10 +216,13 @@ const styles = StyleSheet.create({
   },
   quantityText: {
     marginHorizontal: 10,
-    fontSize: 16
+    fontSize: 24
   },
   buttonSmall: {
-    backgroundColor: Colours.primary,
+    backgroundColor: Colours.button,
+    alignItems: "center",    
+    height: 35,
+    width: 35,
     padding: 5,
     borderRadius: 5
   }
