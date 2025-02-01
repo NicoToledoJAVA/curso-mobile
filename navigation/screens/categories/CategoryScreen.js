@@ -1,42 +1,29 @@
 //CategoryScreen.js
 
 import React, { useState, useEffect } from 'react';
-import url from '../../../config/fetchInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePatchCartMutation, useGetCartQuery } from '../../../services/cart';
+import { useGetWinesQuery, useGetWineByIdQuery } from '../../../services/shop';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 
 const CategoryScreen = ({ route }) => {
   const { category = 'reserva' } = route.params || {};
   const [items, setItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const dispatch = useDispatch();
-  const localId = useSelector(state => state.user.localId); // Usuario actual
-  const { data: cartData } = useGetCartQuery({ localId }); // Obtener carrito del usuario
-  const [updateCart] = usePatchCartMutation(); // Mutación para actualizar el carrito
+  const localId = useSelector(state => state.user.localId);
+  const { data: cartData } = useGetCartQuery({ localId });
+  const [updateCart] = usePatchCartMutation();
+  const { data: winesData, error, isLoading } = useGetWinesQuery();
 
   useEffect(() => {
-    fetchCategoryItems(category);
-  }, [category]);
-
-  const fetchCategoryItems = async (category) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch(`${url}/getAll`);
-      const data = await response.json();
-      const filteredItems = data.filter((wine) => wine.category?.toLowerCase() === category.toLowerCase());
+    if (winesData) {
+      const filteredItems = Object.values(winesData).filter(
+        (wine) => wine.category?.toLowerCase() === category.toLowerCase()
+      );
       setItems(filteredItems);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching category items:', error);
-      setError('Hubo un error al cargar los ítems. Intenta nuevamente.');
-      setLoading(false);
     }
-  };
+  }, [winesData, category]);
 
   const handleNext = () => {
     if (currentIndex < items.length - 1) {
@@ -52,35 +39,38 @@ const CategoryScreen = ({ route }) => {
 
   const handleAddToCart = async () => {
     if (!localId) {
-      alert("Debes iniciar sesión para agregar productos al carrito.");
+      alert('Debes iniciar sesión para agregar productos al carrito.');
       return;
     }
-  
+
     const currentItem = items[currentIndex];
     const currentCart = cartData || [];
-    const existingItemIndex = currentCart.findIndex(item => item.productId === currentItem.id);
-  
+    const existingItemIndex = currentCart.findIndex(
+      (item) => item.productId === currentItem.id
+    );
+
     let updatedCart;
-  
+
     if (existingItemIndex !== -1) {
-      updatedCart = currentCart.map(item =>
-        item.productId === currentItem.id ? { ...item, quantity: item.quantity + 1 } : item
+      updatedCart = currentCart.map((item) =>
+        item.productId === currentItem.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
     } else {
       updatedCart = [...currentCart, { productId: currentItem.id, quantity: 1 }];
     }
-  
+
     try {
       await updateCart({ localId, cart: updatedCart });
       dispatch(updateCart(updatedCart));
-      alert("Producto agregado al carrito.");
+      alert('Producto agregado al carrito.');
     } catch (error) {
-      console.error("Error al actualizar el carrito:", error);
-      setError("Error al agregar el producto. Intenta nuevamente.");
+      console.error('Error al actualizar el carrito:', error);
     }
   };
-  
-  if (loading) {
+
+  if (isLoading) {
     return (
       <View style={styles.loaderContainer}>
         <ActivityIndicator size="large" color="#0000ff" />
@@ -92,10 +82,7 @@ const CategoryScreen = ({ route }) => {
   if (error) {
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>{error}</Text>
-        <TouchableOpacity style={styles.retryButton} onPress={() => fetchCategoryItems(category)}>
-          <Text style={styles.buttonText}>Reintentar</Text>
-        </TouchableOpacity>
+        <Text style={styles.errorText}>Hubo un error al cargar los ítems.</Text>
       </View>
     );
   }
@@ -115,24 +102,34 @@ const CategoryScreen = ({ route }) => {
       <Text style={styles.title}>Categoría: {category}</Text>
       <View style={styles.itemContainer}>
         {currentItem.photo && (
-          <Image source={{ uri: `data:image/jpeg;base64,${currentItem.photo}` }} style={styles.image} />
+          <Image
+            source={{ uri: `data:image/jpeg;base64,${currentItem.photo}` }}
+            style={styles.image}
+          />
         )}
         <Text style={styles.itemName}>{currentItem.name}</Text>
         <Text style={styles.itemDetails}>Año: {currentItem.year}</Text>
         <Text style={styles.itemDetails}>Tipo: {currentItem.type}</Text>
-        <Text style={styles.itemDetails}>Precio: ${currentItem.price.toLocaleString('es-AR')}</Text>
+        <Text style={styles.itemDetails}>
+          Precio: ${currentItem.price.toLocaleString('es-AR')}
+        </Text>
       </View>
-
       <View style={styles.navigationButtons}>
-        <TouchableOpacity style={[styles.navButton, currentIndex === 0 && styles.disabledButton]} onPress={handlePrevious} disabled={currentIndex === 0}>
-          <Text style={styles.buttonText}>{"<"}</Text>
+        <TouchableOpacity
+          style={[styles.navButton, currentIndex === 0 && styles.disabledButton]}
+          onPress={handlePrevious}
+          disabled={currentIndex === 0}
+        >
+          <Text style={styles.buttonText}>{'<'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.navButton, currentIndex === items.length - 1 && styles.disabledButton]} onPress={handleNext} disabled={currentIndex === items.length - 1}>
-          <Text style={styles.buttonText}>{">"}</Text>
+        <TouchableOpacity
+          style={[styles.navButton, currentIndex === items.length - 1 && styles.disabledButton]}
+          onPress={handleNext}
+          disabled={currentIndex === items.length - 1}
+        >
+          <Text style={styles.buttonText}>{'>'}</Text>
         </TouchableOpacity>
       </View>
-
-      {/* ✅ Botón para agregar al carrito */}
       <TouchableOpacity style={styles.addButton} onPress={handleAddToCart}>
         <Text style={styles.buttonText}>Agregar al carrito 🛒</Text>
       </TouchableOpacity>
@@ -200,11 +197,6 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: 20,
     textAlign: 'center',
-  },
-  retryButton: {
-    padding: 10,
-    backgroundColor: '#007BFF',
-    borderRadius: 5,
   },
   addButton: {
     marginTop: 20,

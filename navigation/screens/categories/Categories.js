@@ -19,7 +19,7 @@ const AllCategories = () => {
   const modifiedWine = wine ? { ...wine, photo: "Va foto" } : null;
 
   // Procesar las categorías únicas y eliminar el primer valor
-  const categories = [...new Set(data.map((wine) => wine.category).slice(1))]; // Eliminamos el primer valor, que lo habiamos puesto a modo de ejemplo y decidimos dejar para complejizar la query
+  const categories = [...new Set(data.map((wine) => wine.category).slice(1))];
 
 
   const handleCategoryClick = (category) => {
