@@ -26,14 +26,14 @@ const Signup = () => {
 
   const onSubmit = async () => {
     try {
-      // Validate the form
+      
       signupSchema.validateSync({ email, password, confirmPassword });
   
-      // Make the API call
+     
       const response = await triggerSingUp({ email, password });
-      console.log(response); // Log response to ensure it contains the expected data
+      
   
-      // Ensure response is valid
+     
       if (response?.data) {
         const user = {
           email: response.data.email,
@@ -41,14 +41,14 @@ const Signup = () => {
           localId: response.data.localId,
         };
   
-        dispatch(setUser(user)); // Set the user in Redux
+        dispatch(setUser(user));
       } else {
         console.error("Sign up failed. No response data.");
       }
   
     } catch (error) {
       console.log(error);
-      // Handle form validation errors
+     
       switch (error.path) {
         case "email":
           setEmailError(error.message);
