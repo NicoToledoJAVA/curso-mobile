@@ -14,7 +14,8 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 - [Contribución](#contribución)
 - [Contacto](#contacto)
 
-## 1. Descripción
+
+<h2 id="descripcion">1. Descripción</h2>
 
 Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 
