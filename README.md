@@ -97,9 +97,9 @@ seleccionar una foto de la galeria o tomarte una con la Cámara de tu dispositiv
 ### REDUX
 
 El proyecto utiliza `REDUX` para almacenar información de estados y funcionalidades de la `navigation`  
-entre las diferentes solpas (`'tab'`) del proyecto, además se alamacena en `REDUX` tanto lo que 
+entre las diferentes solapas (`'tab'`) del proyecto, además se alamacena en `REDUX` tanto lo que 
 obtenemos de `SQLite`, como lo que fetcheamos de `firebase`. Esto permite mantener 
-la información del paciente entre las diferentes páginas del proyecto.
+la información del usuario entre las diferentes páginas del proyecto.
 
 ### SQLite
 
@@ -144,10 +144,10 @@ se detallan las funciones implementadas:
  `patchCart`: Actualiza el carrito de compras de un usuario con un `PATCH`.
  `getUser`: Obtiene los datos del usuario con un GET.
  `getCart`: Obtiene solo el carrito de un usuario con un GET.
- 
+ `fireBaseUrl`: Es la URL base que conecta con Firebase y se importa desde un archivo de configuración (fetchInfo.js).
+
  **Uso:** Se exportan los hooks generados por `Redux Toolkit` para hacer llamadas 
  a estos endpoints desde componentes de `React Native`.
- `fireBaseUrl`: Es la URL base que conecta con Firebase y se importa desde un archivo de configuración (fetchInfo.js).
  
  
  <h3>Servicio de vinos (Ruta: <code style="background-color: #fbe928; padding: 2px 4px;">/services/shop.js</code>)</h3>
