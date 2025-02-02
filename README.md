@@ -11,7 +11,7 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [REDUX, SQLite y Firebase](#persis)
-- [Endpoints](#endpoints)
+- [Servicios relacionados a Firebase](#fire)
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Contribución](#contribución)
 - [Contacto](#contacto)
@@ -129,21 +129,48 @@ nuación, se detallan las funciones implementadas:
     Elimina todos los registros de la `tabla sessionUser`.
     Sirve para desloguearse.
 
-## Endpoints
+ 
+<h2 id="fire">Servicios relacionados a Firebase</h2>
 
-- **Endpoint 1: Obtener Médicos**
+ **`userApi`. Propósito:** Proporciona un conjunto de endpoints para gestionar la 
+ información del `usuario` en `Firebase`. Permite actualizar la imagen de perfil, 
+ ubicación y carrito de compras de un usuario específico.
+ 
+ <h3>Servicio user (Ruta /services/user.js) </h3>
+ 
+ **Métodos:**
+ `patchImageProfile`: Actualiza la imagen de perfil de un usuario con un `PATCH` a la base de datos.
+ `patchLocation`: Actualiza la dirección y ubicación de un usuario con un `PATCH`.
+ `patchCart`: Actualiza el carrito de compras de un usuario con un `PATCH`.
+ `getUser`: Obtiene los datos del usuario con un GET.
+ `getCart`: Obtiene solo el carrito de un usuario con un GET.
+ 
+ **Uso:** Se exportan los hooks generados por `Redux Toolkit` para hacer llamadas 
+ a estos endpoints desde componentes de `React Native`.
+ `fireBaseUrl`: Es la URL base que conecta con Firebase y se importa desde un archivo de configuración (fetchInfo.js).
+ **`shopApi`. Propósito:** Gestiona la información relacionada con los vinos. 
+ Proporciona endpoints para obtener una lista de vinos y para obtener información detallada de un vino por su ID.
+ 
+ **Métodos:**
+ `getWines:` Obtiene todos los vinos.
+ `getWineById:` Obtiene un vino específico por su ID.
+ **Uso:** Se exportan los hooks generados para consumir estos endpoints en los componentes de la aplicación.
+fireBaseUrl: Al igual que en el primer archivo, se usa para conectar con la base de datos de Firebase.
+ cartApi
+Propósito: Gestiona el carrito de compras de los usuarios. Permite obtener el carrito y actualizarlo.
+Métodos:
+getCart: Obtiene el carrito de un usuario específico.
+patchCart: Actualiza el carrito de un usuario con un PUT.
+Uso: Los hooks generados se usan para interactuar con la API en los componentes, permitiendo que el carrito de un usuario se actualice o recupere según sea necesario.
+¿Qué es fireBaseUrl?
+Definición: fireBaseUrl es una constante que guarda la URL base de Firebase desde la que se recuperan y se envían los datos. Este valor generalmente se configura en un archivo fetchInfo.js o un archivo de configuración similar.
+Propósito: Centralizar la URL base de la base de datos para que se pueda reutilizar en múltiples lugares del proyecto.
+¿Cómo se usa en estos archivos?
+Conexión centralizada: Al importar fireBaseUrl desde un archivo de configuración, se asegura que todos los endpoints de la API estén conectados a la misma base de datos (Firebase).
+Facilita el mantenimiento: Si es necesario cambiar la URL de Firebase (por ejemplo, si cambian las credenciales), solo se necesita modificar un archivo y no todo el código.
+Esto ayuda a manejar la conexión a Firebase de manera más eficiente y facilita el mantenimiento del proyecto a largo plazo.
 
-    ```plaintext
-    https://vps-3858808-x.dattaweb.com:8443/medicina/getMedics
-    ```
-
-    Este endpoint devuelve una lista de médicos que se muestra en la página `vision.html`.
-
-- **Endpoint 2: Obtener Recomendación Médica**
-
-    ```plaintext
-    https://vps-3858808-x.dattaweb.com:8443/medicina/recomendacion?imc=${encodeURIComponent(imc)}
-    ```
+ 
 
   **Nota**:
 
