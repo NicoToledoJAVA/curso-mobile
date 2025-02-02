@@ -79,7 +79,7 @@ sección dependencies, almacenándolas en una carpeta llamada `'node_modules'` d
 proyecto. 
 Por lo tanto, después de clonar un proyecto, ejecutar `'npm install'` es el paso necesario para insta-
 lar las dependencias requeridas y asegurar que el proyecto funcione correctamente en tu entorno local. 
-Este proceso se conoce comúnmente como `"instalar las dependencias del proyecto"`.```
+Este proceso se conoce comúnmente como `"instalar las dependencias del proyecto"`.
 
 ## Uso
 
