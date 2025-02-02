@@ -5,8 +5,8 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 ## Tabla de Contenidos
 
 - [1. Descripción](#descripcion)
--   [   1.1 Pantalla Categorías](#catego)
-- [   1.2 Pantalla Categorías](#catego)
+- [1.1 Pantalla Categorías](#catego)
+- [1.2 Pantalla 'Carrito'](#carro)
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [LocalStorage y Fetch](#localstorage-y-fetch)
@@ -20,13 +20,23 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 
 Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 
-<h2 id="catego">1.1 Pantalla Categorías</h2>
+<h2 id="catego">1.1 Pantalla Categorías.</h2>
 
-    Aqui, a través de fetchear todos los vinos de la BD de firebase, se identifican las categorias
+        Aqui, a través de fetchear todos los vinos de la BD de firebase, se identifican las categorias
     de estos y se crea un botón para cada categoría encontrada. Usted podrá seleccionar una cate-
     goria y ahí elegir un vino de su preferencia para agregar al carrito. Como se ve en la siguien-
     te ilustración:
 ![Pantalla Categorias](./gitHubIllustrations/SolapaA.jpg)
+
+
+<h2 id="carro">1.2 Pantalla 'Carrito'.</h2>
+        Aqui, a través de fetchear todos los 'id' y 'cantidades' de los items que integran el carrito 
+    del usuario, se fetchean los vinos por id y la interfaz calcula el precio (Precio x Cantidad).
+        Además, la interfaz incluye dos simpáticos botones '+' y '-' que, al presionarlos modifican
+    en la BD de firebase la cantidad de ese elemento que hay en el carrito. Luego, más abajo, se puede
+    ver el resultado de la compra y el botón de finalizar compra. 
+![Pantalla 'Carrito'](./gitHubIllustrations/SolapaB.jpg)
+
 2. **vision.html**: Realiza un test de daltonismo y muestra médicos obtenidos mediante el fetcheo a un Endpoint de una API.
 3. **resultados.html**: Toma variables del `localStorage` y realiza una consulta médica utilizando otro fetcheo a otro Endpoint de la misma API.
 
