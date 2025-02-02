@@ -34,7 +34,8 @@ Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
     del usuario, se fetchean los vinos por id y la interfaz calcula el precio (Precio x Cantidad).
         Además, la interfaz incluye dos simpáticos botones '+' y '-' que, al presionarlos modifican
     en la BD de firebase la cantidad de ese elemento que hay en el carrito. Luego, más abajo, se puede
-    ver el resultado de la compra y el botón de finalizar compra. 
+    ver el resultado de la compra y el botón de finalizar compra.
+
 ![Pantalla 'Carrito'](./gitHubIllustrations/SolapaB.jpg)
 
 2. **vision.html**: Realiza un test de daltonismo y muestra médicos obtenidos mediante el fetcheo a un Endpoint de una API.
