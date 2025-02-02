@@ -13,7 +13,7 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 - [REDUX, SQLite y Firebase](#persis)
 - [Servicios relacionados a Firebase](#fire)
 - [Estructura del Proyecto](#estructura-del-proyecto)
-- [Calificación](#calificación:)
+- [Calificación](#calificación)
 - [Contacto](#contacto)
 
 
