@@ -70,7 +70,7 @@ Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
     ```bash
     cd curso-mobile
     ```
-###NOTE
+### NOTE
 Cuando clonas un proyecto que utiliza Node.js, es común que las dependencias necesarias para que el 
 proyecto funcione no estén incluidas en el repositorio, ya que suelen estar listadas en el archivo
 `'package.json'`. Para instalar estas dependencias, se utiliza el comando `'npm install'`. Este 
