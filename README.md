@@ -45,10 +45,10 @@ Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 
         Esta pantalla fetcheará del usuario, su imagen de perfil, que se encuentra en la BD de firebase
     en un String de formato base64.
-        La pantalla cuenta con 'Device Features' (Puntualmente, la cámara y la galeria), donde el usuario
-    podrá cargar la foto de su preferencia para el perfil.    
-        Además, la interfaz incluye un simpático icono de 'Pirata' para el caso que no se encuentre en la
-    BD, alguna imagen cargada anteriormente por el usuario.
+        La pantalla cuenta con 'Device Features' (Puntualmente, la cámara y la galeria), donde el 
+    usuario podrá cargar la foto de su preferencia para el perfil.    
+        Además, la interfaz incluye un simpático icono de 'Pirata' para el caso que no se encuentre en
+    la BD, alguna imagen cargada anteriormente por el usuario.
         
 
 ## Instalación
