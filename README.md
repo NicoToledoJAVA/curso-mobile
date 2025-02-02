@@ -10,7 +10,7 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 - [1.3. Pantalla 'MyProfile'](#profi)
 - [Instalación](#instalación)
 - [Uso](#uso)
-- [LocalStorage y Fetch](#localstorage-y-fetch)
+- [REDUX, SQLite y Firebase](#persis)
 - [Endpoints](#endpoints)
 - [Estructura del Proyecto](#estructura-del-proyecto)
 - [Contribución](#contribución)
@@ -68,7 +68,7 @@ Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 3. Instala las dependencias necesarias:
 
     ```bash
-    cd curso-mobile
+    npm install
     ```
 ### NOTE
 Cuando clonas un proyecto que utiliza Node.js, es común que las dependencias necesarias para que el 
@@ -77,8 +77,8 @@ proyecto funcione no estén incluidas en el repositorio, ya que suelen estar lis
 comando lee el archivo `'package.json'` y descarga todas las dependencias especificadas en la 
 sección dependencies, almacenándolas en una carpeta llamada `'node_modules'` dentro del directorio del 
 proyecto. 
-Por lo tanto, después de clonar un proyecto, ejecutar `'npm install'` es el paso necesario para insta-
-lar las dependencias requeridas y asegurar que el proyecto funcione correctamente en tu entorno local. 
+Por lo tanto, después de clonar un proyecto, ejecutar `'npm install'` es el paso necesario para instalar 
+las dependencias requeridas y asegurar que el proyecto funcione correctamente en tu entorno local. 
 Este proceso se conoce comúnmente como `"instalar las dependencias del proyecto"`.
 
 ## Uso
@@ -91,7 +91,8 @@ idas en el pedido.
 3. **PERFIL**: Accederás a esta sección a través de la barra de navegación abajo a la derecha y allí po-
 drás seleccionar una foto de la galeria o tomarte una con la Cámara de tu dispositivo.
 
-## REDUX, SQLite y Firebase
+ 
+<h2 id="persis">REDUX, SQLite y Firebase</h2>
 
 ### REDUX
 
