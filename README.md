@@ -98,8 +98,8 @@ seleccionar una foto de la galeria o tomarte una con la Cámara de tu dispositiv
 
 El proyecto utiliza `REDUX` para almacenar información de estados y funcionalidades de la `navigation`  
 entre las diferentes solpas (`'tab'`) del proyecto, además se alamacena en `REDUX` tanto lo que 
-obtenemos de `SQLite`, como lo que fetcheamos de `firebase`. paciente y recuperarla en páginas poste-
-riores. Esto permite mantener la información del paciente entre las diferentes páginas del proyecto.
+obtenemos de `SQLite`, como lo que fetcheamos de `firebase`. Esto permite mantener 
+la información del paciente entre las diferentes páginas del proyecto.
 
 ### SQLite
 
