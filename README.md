@@ -132,7 +132,7 @@ se detallan las funciones implementadas:
  
 <h2 id="fire">Servicios relacionados a Firebase</h2>
 
- <h3>Servicio user (Ruta /services/user.js) </h3>
+ <h3>Servicio user (Ruta `/services/user.js`) </h3>
 
  **`userApi`. Propósito:** Proporciona un conjunto de endpoints para gestionar la 
  información del `usuario` en `Firebase`. Permite actualizar la imagen de perfil, 
