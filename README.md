@@ -132,7 +132,7 @@ se detallan las funciones implementadas:
  
 <h2 id="fire">Servicios relacionados a Firebase</h2>
 
-<h3>Servicio user (Ruta <code style="background-color: #fbe928; padding: 2px 4px;">/services/user.js</code>)</h3>
+<h3>Servicio user (Ruta: <code style="background-color: #fbe928; padding: 2px 4px;">/services/user.js</code>)</h3>
 
  **`userApi`. Propósito:** Proporciona un conjunto de endpoints para gestionar la 
  información del `usuario` en `Firebase`. Permite actualizar la imagen de perfil, 
@@ -149,8 +149,9 @@ se detallan las funciones implementadas:
  a estos endpoints desde componentes de `React Native`.
  `fireBaseUrl`: Es la URL base que conecta con Firebase y se importa desde un archivo de configuración (fetchInfo.js).
  
- <h3>Servicio de vinos (Ruta /services/shop.js) </h3>
  
+ <h3>Servicio de vinos (Ruta: <code style="background-color: #fbe928; padding: 2px 4px;">/services/shop.js</code>)</h3>
+
   **`shopApi`. Propósito:** Gestiona la información relacionada con los vinos. 
  Proporciona endpoints para obtener una lista de vinos y para obtener información detallada de un vino por su ID.
  
@@ -160,7 +161,8 @@ se detallan las funciones implementadas:
  **Uso:** Se exportan los hooks generados para consumir estos endpoints en los componentes de la aplicación.
  `fireBaseUrl`: Al igual que en el primer archivo, se usa para conectar con la base de datos de Firebase.
 
-  <h3>Servicio de carrito (Ruta /services/cart.js) </h3>
+
+ <h3>Servicio de carrito (Ruta: <code style="background-color: #fbe928; padding: 2px 4px;">/services/cart.js</code>)</h3>
  
  **`cartApi`. Propósito:** Gestiona el carrito de compras de los usuarios. Permite obtener el carrito y actualizarlo.
  **Métodos:**
