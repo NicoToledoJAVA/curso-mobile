@@ -19,7 +19,9 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 
 ## 1.1. **Pantalla Categorias**:
-    Aqui, a través de fetchear todos los vinos de la BD de firebase, se identifican las categorias de estos y se crea un botón para cada categoría encontrada. Usted podrá seleccionar una categoria y ahí elegir un vino de su preferencia para agregar al carrito. Como se ve en la siguiente ilustración:
+    Aqui, a través de fetchear todos los vinos de la BD de firebase, se identifican las categorias de estos 
+    y se crea un botón para cada categoría encontrada. Usted podrá seleccionar una categoria y ahí elegir 
+    un vino de su preferencia para agregar al carrito. Como se ve en la siguiente ilustración:
 ![Pantalla Categorias](./gitHubIllustrations/SolapaA.jpg)
 2. **vision.html**: Realiza un test de daltonismo y muestra médicos obtenidos mediante el fetcheo a un Endpoint de una API.
 3. **resultados.html**: Toma variables del `localStorage` y realiza una consulta médica utilizando otro fetcheo a otro Endpoint de la misma API.
