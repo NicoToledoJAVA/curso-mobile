@@ -4,8 +4,8 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 
 ## Tabla de Contenidos
 
-- [1. Descripción](#1. descripción)
-- [   1.1 Pantalla Categorias](#Categorias)
+- [1. Descripción](#descripción)
+- [   1.1 Pantalla Categorias](#categorias)
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [LocalStorage y Fetch](#localstorage-y-fetch)
@@ -18,7 +18,7 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 
 Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 
-## 1.1. **Pantalla Categorias**:
+## 1.1. Pantalla Categorias:
     Aqui, a través de fetchear todos los vinos de la BD de firebase, se identifican las categorias
     de estos y se crea un botón para cada categoría encontrada. Usted podrá seleccionar una cate-
     goria y ahí elegir un vino de su preferencia para agregar al carrito. Como se ve en la siguien-
