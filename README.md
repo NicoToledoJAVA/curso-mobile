@@ -85,7 +85,7 @@ Este proceso se conoce comúnmente como `"instalar las dependencias del proyecto
 
 1. **CATEGORIAS Y SELECCIÓN DEL VINO**: Elige una de las categorias y podrás navegar entre los vinos de
 esas categorias y así poder agregarlos al Carrito.
-2. **CARRITO**: Una vez elegido el o los vino/s de tu prefencia, podés manipular la cantidad de ese vino
+2. **CARRITO**: Una vez elegido el o los vino/s de tu preferencia, podés manipular la cantidad de ese vino
 que será incluido en el pedido. NOTA QUE EL PRECIO SUBE al aumentar las cantidades de las unidades inclu-
 idas en el pedido.
 3. **PERFIL**: Accederás a esta sección a través de la barra de navegación abajo a la derecha y allí po-
