@@ -132,11 +132,11 @@ nuación, se detallan las funciones implementadas:
  
 <h2 id="fire">Servicios relacionados a Firebase</h2>
 
+ <h3>Servicio user (Ruta /services/user.js) </h3>
+
  **`userApi`. Propósito:** Proporciona un conjunto de endpoints para gestionar la 
  información del `usuario` en `Firebase`. Permite actualizar la imagen de perfil, 
  ubicación y carrito de compras de un usuario específico.
- 
- <h3>Servicio user (Ruta /services/user.js) </h3>
  
  **Métodos:**
  `patchImageProfile`: Actualiza la imagen de perfil de un usuario con un `PATCH` a la base de datos.
@@ -148,58 +148,52 @@ nuación, se detallan las funciones implementadas:
  **Uso:** Se exportan los hooks generados por `Redux Toolkit` para hacer llamadas 
  a estos endpoints desde componentes de `React Native`.
  `fireBaseUrl`: Es la URL base que conecta con Firebase y se importa desde un archivo de configuración (fetchInfo.js).
- **`shopApi`. Propósito:** Gestiona la información relacionada con los vinos. 
+ 
+ <h3>Servicio de vinos (Ruta /services/shop.js) </h3>
+ 
+  **`shopApi`. Propósito:** Gestiona la información relacionada con los vinos. 
  Proporciona endpoints para obtener una lista de vinos y para obtener información detallada de un vino por su ID.
  
  **Métodos:**
- `getWines:` Obtiene todos los vinos.
- `getWineById:` Obtiene un vino específico por su ID.
+ `getWines`: Obtiene todos los vinos.
+ `getWineById`: Obtiene un vino específico por su ID.
  **Uso:** Se exportan los hooks generados para consumir estos endpoints en los componentes de la aplicación.
-fireBaseUrl: Al igual que en el primer archivo, se usa para conectar con la base de datos de Firebase.
- cartApi
-Propósito: Gestiona el carrito de compras de los usuarios. Permite obtener el carrito y actualizarlo.
-Métodos:
-getCart: Obtiene el carrito de un usuario específico.
-patchCart: Actualiza el carrito de un usuario con un PUT.
-Uso: Los hooks generados se usan para interactuar con la API en los componentes, permitiendo que el carrito de un usuario se actualice o recupere según sea necesario.
-¿Qué es fireBaseUrl?
-Definición: fireBaseUrl es una constante que guarda la URL base de Firebase desde la que se recuperan y se envían los datos. Este valor generalmente se configura en un archivo fetchInfo.js o un archivo de configuración similar.
-Propósito: Centralizar la URL base de la base de datos para que se pueda reutilizar en múltiples lugares del proyecto.
-¿Cómo se usa en estos archivos?
-Conexión centralizada: Al importar fireBaseUrl desde un archivo de configuración, se asegura que todos los endpoints de la API estén conectados a la misma base de datos (Firebase).
-Facilita el mantenimiento: Si es necesario cambiar la URL de Firebase (por ejemplo, si cambian las credenciales), solo se necesita modificar un archivo y no todo el código.
-Esto ayuda a manejar la conexión a Firebase de manera más eficiente y facilita el mantenimiento del proyecto a largo plazo.
+ `fireBaseUrl`: Al igual que en el primer archivo, se usa para conectar con la base de datos de Firebase.
 
+  <h3>Servicio de carrito (Ruta /services/cart.js) </h3>
  
+ **`cartApi`. Propósito:** Gestiona el carrito de compras de los usuarios. Permite obtener el carrito y actualizarlo.
+ **Métodos:**
+ `getCart`: Obtiene el carrito de un usuario específico.
+ `patchCart`: Actualiza el carrito de un usuario con un PUT.
+ **Uso:** Los hooks generados se usan para interactuar con la API en los componentes, permitiendo que el carrito 
+ de un usuario se actualice o recupere según sea necesario.
 
-  **Nota**:
+  ## Tecnologías
 
-  Este último endpoint tiene un elemento dinámico; la variable "imc" se establece en función de los datos ingresados y se fetchea.
-
-## Tecnologías
-
-- HTML
-- CSS
+- React Native
+- Node.js
 - JavaScript
-- Bootstrap
-- Fetch API
+- Redux
+- Firebase RealTimeDataBase
+- Firebase Authentication
+- SQLite
 
 
 ## Estructura del Proyecto
 
-1. **index.html**: 
-    - Página de entrada donde se recogen los datos del paciente.
-    - Eventos de botón manejados mediante JavaScript para controlar la navegación.
+1. **/NAVIGATION**: 
+    - Dentro de esta encontrará `/STACKS` por un lado y `SCREENS`, por el otro lados.
+    - Tenemos un navigation container personalizado llamado `/navigation/PersonalRouter.js`.
 
-2. **vision.html**: 
-    - Página de test de daltonismo con interacción de mouse.
-    - Obtención de datos de médicos mediante una API.
-    - Las tarjetas de médicos se generan dinámicamente a partir del array `medicosArray`.
-
-3. **resultados.html**: 
-    - Muestra recomendaciones médicas basadas en el IMC almacenado en `localStorage`.
-    - Botones manejados por eventos JavaScript para redirigir y recargar la página.
-
+2. **/services**: 
+    - Aqui encontrará todo lo relacionado con la persistencia y conexión a Firebase.
+    - También se encuentra aquí el sistema de fetcheo de la autenticación.
+    
+3. **/contexts/deviceDB/dbSqlite.js**: 
+    - Aquí encontrará la `conexión`, por así decirlo de la app con la base de datos inter-
+    na de `SQLite` .
+    
 ## Calificación:
 
 Si deseas calificar a este proyecto, sigue estos pasos:
