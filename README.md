@@ -103,9 +103,9 @@ la información del paciente entre las diferentes páginas del proyecto.
 
 ### SQLite
 
-Para cumplir con la consigna, gestionamos la sesión de un `usuario` en la app `React Native` utili-
-zando la biblioteca `expo-sqlite` para interactuar con una base de datos `SQLite local`. A conti-
-nuación, se detallan las funciones implementadas:
+Para cumplir con la consigna, gestionamos la sesión de un `usuario` en la app `React Native` utilizando 
+la biblioteca `expo-sqlite` para interactuar con una base de datos `SQLite local`. A continuación, 
+se detallan las funciones implementadas:
 
 **1. `init`: Inicializa la base de datos y crea la `tabla sessionUser` si no existe:**
    Abre la base de datos llamada `'session.db'`.
