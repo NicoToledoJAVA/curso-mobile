@@ -184,17 +184,17 @@ se detallan las funciones implementadas:
 
 ## Estructura del Proyecto
 
-1. **/NAVIGATION**: 
-    - Dentro de esta encontrará `/STACKS` por un lado y `SCREENS`, por el otro lados.
+1. **/navigation/**: 
+    - Dentro de esta encontrará `/STACKS` por un lado y `/SCREENS`, por el otro lado.
     - Tenemos un navigation container personalizado llamado `/navigation/PersonalRouter.js`.
 
-2. **/services**: 
+2. **/services/**: 
     - Aqui encontrará todo lo relacionado con la persistencia y conexión a Firebase.
     - También se encuentra aquí el sistema de fetcheo de la autenticación.
     
 3. **/contexts/deviceDB/dbSqlite.js**: 
-    - Aquí encontrará la `conexión`, por así decirlo de la app con la base de datos inter-
-    na de `SQLite` .
+    - Aquí encontrará la `conexión`, por así decirlo de la app con la base de datos 
+    interna de `SQLite` .
     
 ## Calificación:
 
