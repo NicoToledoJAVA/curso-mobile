@@ -4,7 +4,7 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 
 ## Tabla de Contenidos
 
-- [1. Descripción](#descripción)
+- [1. Descripción](#1. descripción)
 - [   1.1 Pantalla Categorias](#Categorias)
 - [Instalación](#instalación)
 - [Uso](#uso)
