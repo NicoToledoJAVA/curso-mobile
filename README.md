@@ -71,10 +71,15 @@ Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
     cd curso-mobile
     ```
   ```NOTE
-Cuando clonas un proyecto que utiliza Node.js, es común que las dependencias necesarias para que el proyecto funcione no estén incluidas en el repositorio, ya que suelen estar listadas en el archivo package.json. Para instalar estas dependencias, se utiliza el comando npm install. Este comando lee el archivo package.json y descarga todas las dependencias especificadas en la sección dependencies, almacenándolas en una carpeta llamada node_modules dentro del directorio del proyecto. 
-LUISLLAMAS.ES
-
-Por lo tanto, después de clonar un proyecto, ejecutar npm install es el paso necesario para instalar las dependencias requeridas y asegurar que el proyecto funcione correctamente en tu entorno local. Este proceso se conoce comúnmente como "instalar las dependencias del proyecto".
+Cuando clonas un proyecto que utiliza Node.js, es común que las dependencias necesarias para que el 
+proyecto funcione no estén incluidas en el repositorio, ya que suelen estar listadas en el archivo
+`'package.json'`. Para instalar estas dependencias, se utiliza el comando `'npm install'`. Este 
+comando lee el archivo `'package.json'` y descarga todas las dependencias especificadas en la 
+sección dependencies, almacenándolas en una carpeta llamada `'node_modules'` dentro del directorio del 
+proyecto. 
+Por lo tanto, después de clonar un proyecto, ejecutar `'npm install'` es el paso necesario para insta-
+lar las dependencias requeridas y asegurar que el proyecto funcione correctamente en tu entorno local. 
+Este proceso se conoce comúnmente como `"instalar las dependencias del proyecto"`.
     ```
 
 ## Uso
