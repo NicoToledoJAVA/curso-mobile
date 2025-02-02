@@ -5,8 +5,9 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 ## Tabla de Contenidos
 
 - [1. Descripción](#descripcion)
-- [1.1 Pantalla Categorías](#catego)
-- [1.2 Pantalla 'Carrito'](#carro)
+- [1.1. Pantalla Categorías](#catego)
+- [1.2. Pantalla 'Carrito'](#carro)
+- [1.3. Pantalla 'MyProfile'](#profi)
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [LocalStorage y Fetch](#localstorage-y-fetch)
@@ -20,7 +21,7 @@ Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalid
 
 Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 
-<h2 id="catego">1.1 Pantalla Categorías.</h2>
+<h2 id="catego">1.1. Pantalla Categorías.</h2>
 
         Aqui, a través de fetchear todos los vinos de la BD de firebase, se identifican las categorias
     de estos y se crea un botón para cada categoría encontrada. Usted podrá seleccionar una cate-
@@ -29,7 +30,8 @@ Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 ![Pantalla Categorias](./gitHubIllustrations/SolapaA.jpg)
 
 
-<h2 id="carro">1.2 Pantalla 'Carrito'.</h2>
+<h2 id="carro">1.2. Pantalla 'Carrito'.</h2>
+
         Aqui, a través de fetchear todos los 'id' y 'cantidades' de los items que integran el carrito 
     del usuario, se fetchean los vinos por id y la interfaz calcula el precio (Precio x Cantidad).
         Además, la interfaz incluye dos simpáticos botones '+' y '-' que, al presionarlos modifican
@@ -38,24 +40,42 @@ Una vez logueado, este proyecto consta de tres 'solapas' ('tabs') principales:
 
 ![Pantalla 'Carrito'](./gitHubIllustrations/SolapaB.jpg)
 
-2. **vision.html**: Realiza un test de daltonismo y muestra médicos obtenidos mediante el fetcheo a un Endpoint de una API.
-3. **resultados.html**: Toma variables del `localStorage` y realiza una consulta médica utilizando otro fetcheo a otro Endpoint de la misma API.
+
+<h2 id="profi">1.3. Pantalla 'My Profile'.</h2>
+
+        Esta pantalla fetcheará del usuario, su imagen de perfil, que se encuentra en la BD de firebase
+    en un String de formato base64.
+        La pantalla cuenta con 'Device Features' (Puntualmente, la cámara y la galeria), donde el usuario
+    podrá cargar la foto de su preferencia para el perfil.    
+        Además, la interfaz incluye un simpático icono de 'Pirata' para el caso que no se encuentre en la
+    BD, alguna imagen cargada anteriormente por el usuario.
+        
 
 ## Instalación
 
 1. Clona este repositorio en tu máquina local:
 
     ```bash
-    git clone https://github.com/tu-usuario/tu-repositorio.git
+    git clone https://github.com/NicoToledoJAVA/curso-mobile.git
     ```
 
 2. Navega al directorio del proyecto:
 
     ```bash
-    cd tu-repositorio
+    cd curso-mobile
     ```
 
-3. Abre los archivos HTML en tu navegador para visualizar el proyecto.
+3. Instala las dependencias necesarias:
+
+    ```bash
+    cd curso-mobile
+    ```
+  ```NOTE
+Cuando clonas un proyecto que utiliza Node.js, es común que las dependencias necesarias para que el proyecto funcione no estén incluidas en el repositorio, ya que suelen estar listadas en el archivo package.json. Para instalar estas dependencias, se utiliza el comando npm install. Este comando lee el archivo package.json y descarga todas las dependencias especificadas en la sección dependencies, almacenándolas en una carpeta llamada node_modules dentro del directorio del proyecto. 
+LUISLLAMAS.ES
+
+Por lo tanto, después de clonar un proyecto, ejecutar npm install es el paso necesario para instalar las dependencias requeridas y asegurar que el proyecto funcione correctamente en tu entorno local. Este proceso se conoce comúnmente como "instalar las dependencias del proyecto".
+    ```
 
 ## Uso
 
