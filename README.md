@@ -83,9 +83,13 @@ Este proceso se conoce comúnmente como `"instalar las dependencias del proyecto
 
 ## Uso
 
-1. **index.html**: Completa el formulario con tus datos de paciente y haz clic en "Ingresar" para continuar.
-2. **vision.html**: Mueve el mouse por la caja de colores para realizar el test de daltonismo. La información sobre los médicos se mostrará abajo, a medida que se obtenga de la API.
-3. **resultados.html**: Accederás a esta página después de haber completado el test de IMC para recibir recomendaciones médicas basadas en el índice calculado.
+1. **CATEGORIAS Y SELECCIÓN DEL VINO**: Elige una de las categorias y podrás navegar entre los vinos de
+esas categorias y así poder agregarlos al Carrito.
+2. **CARRITO**: Una vez elegido el o los vino/s de tu prefencia, podés manipular la cantidad de ese vino
+que será incluido en el pedido. NOTA QUE EL PRECIO SUBE al aumentar las cantidades de las unidades inclu-
+idas en el pedido.
+3. **PERFIL**: Accederás a esta sección a través de la barra de navegación abajo a la derecha y allí po-
+drás seleccionar una foto de la galeria o tomarte una con la Cámara de tu dispositivo.
 
 ## LocalStorage y Fetch
 
