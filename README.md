@@ -1,6 +1,6 @@
 # App de Ecommerce de vino (Proyecto final - Curso MOBILE) 
 
-Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalidades como carrito, creación de perfiles con toma de fotografía -utilizando la cámara del dispositivo-. Utiliza REDUX TOOLKIT, SQLite para guardar la sesión por más que se reinicie la app o el dispositivo, Device Features: Cámara (Como ya dijimos, para las fotos del perfil del usuario), ocupamos Firebase tanto para persistencia de los datos (Vinos, precios, carrito, etc) utilizando Realtime Data Base, como también para la autenticación para crear una experiencia de usuario dinámica y responsiva.
+Este proyecto es una app interactiva de Ecommerce que incluye varias funcionalidades como `carrito`, creación de `perfiles` con toma de fotografía -utilizando la cámara del dispositivo-. Utiliza `REDUX TOOLKIT`, `SQLite` para guardar la sesión por más que se reinicie la app o el dispositivo, `Device Features: Cámara` (Como ya dijimos, para las fotos del perfil del usuario), ocupamos `Firebase` tanto para persistencia de los datos (Vinos, precios, carrito, etc) utilizando `Realtime Data Base`, como también para la autenticación para crear una experiencia de usuario dinámica y responsiva.
 
 ## Tabla de Contenidos
 
@@ -91,29 +91,42 @@ idas en el pedido.
 3. **PERFIL**: Accederás a esta sección a través de la barra de navegación abajo a la derecha y allí po-
 drás seleccionar una foto de la galeria o tomarte una con la Cámara de tu dispositivo.
 
-## LocalStorage y Fetch
+## REDUX, SQLite y Firebase
 
-### LocalStorage
+### REDUX
 
-El proyecto utiliza `localStorage` para almacenar información del paciente y recuperarla en páginas posteriores. Esto permite mantener la información del paciente entre las diferentes páginas del proyecto.
+El proyecto utiliza `REDUX` para almacenar información de estados y funcionalidades de la `navigation`  
+entre las diferentes solpas (`'tab'`) del proyecto, además se alamacena en `REDUX` tanto lo que 
+obtenemos de `SQLite`, como lo que fetcheamos de `firebase`. paciente y recuperarla en páginas poste-
+riores. Esto permite mantener la información del paciente entre las diferentes páginas del proyecto.
 
-### Fetch
+### SQLite
 
-Para cumplir con la consigna, se realizó lo siguiente:
+Para cumplir con la consigna, gestionamos la sesión de un `usuario` en la app `React Native` utili-
+zando la biblioteca `expo-sqlite` para interactuar con una base de datos `SQLite local`. A conti-
+nuación, se detallan las funciones implementadas:
 
-**1. Se agregó la declaración expresa de un array al final de `vision.js`:**
-    ```javascript
-    let medicosArray = data;
-    ```
+**1. `init`: Inicializa la base de datos y crea la `tabla sessionUser` si no existe:**
+   Abre la base de datos llamada `'session.db'`.
+   Establece el modo de registro en `WAL (Write-Ahead Logging)` para mejorar el rendimiento en 
+   operaciones de escritura.
+   Crea la `tabla sessionUser` con las columnas `localId`, `email` e `idToken`.
+   
 
-**2. Luego, se iteró el array con `forEach`:**
-    ```javascript
-    medicosArray.forEach(medico => createCard(medico));
-    ```
+**2. `insertSession`: Inserta una nueva sesión de usuario en la base de datos:**
+    Abre la base de datos `session.db`.
+    Inserta un nuevo registro en la `tabla sessionUser` con los valores proporcionados
+    para `localId`, `email` e `idToken`.
 
-**3. Se manejan dos fetches desde los endpoints:**
-   - El primer fetch obtiene la lista de médicos.
-   - El segundo fetch realiza una consulta de diagnóstico basada en el índice de masa corporal (IMC).
+
+**3. `fetchSession`: Recupera la primera sesión de usuario almacenada en la base de datos:**
+    Abre la base de datos `session.db`.
+    Obtiene el primer registro de la `tabla sessionUser`.
+
+**4. `deleteSesion`: Elimina todas las sesiones de usuario de la base de datos:**
+    Abre la base de datos `session.db`.
+    Elimina todos los registros de la `tabla sessionUser`.
+    Sirve para desloguearse.
 
 ## Endpoints
 
